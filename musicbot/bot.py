@@ -652,9 +652,11 @@ class MusicBot(discord.Client):
                 prefix = u'\u275A\u275A ' if is_paused else ''
 
                 name = u'{}{}'.format(prefix, entry.title)[:128]
-                game = discord.Game(type=0, name=name)
+                #game = discord.Game(type=0, name=name)
+                game = discord.Activity(type=discord.ActivityType.listening, name=name)
         else:
-            game = discord.Game(type=0, name=self.config.status_message.strip()[:128])
+            #game = discord.Game(type=0, name=self.config.status_message.strip()[:128])
+            game = discord.Activity(type=discord.ActivityType.listening, name=self.config.status_message.strip()[:128])
 
         async with self.aiolocks[_func_()]:
             if game != self.last_status:
@@ -1113,8 +1115,8 @@ class MusicBot(discord.Client):
         """Provides a basic template for embeds"""
         e = discord.Embed()
         e.colour = 7506394
-        e.set_footer(text='Just-Some-Bots/MusicBot ({})'.format(BOTVERSION), icon_url='https://i.imgur.com/gFHBoZA.png')
-        e.set_author(name=self.user.name, url='https://github.com/Just-Some-Bots/MusicBot', icon_url=self.user.avatar_url)
+        e.set_footer(text='CPSbot with HanyangUniv ({})'.format(BOTVERSION), icon_url='https://cdn.discordapp.com/attachments/823831670305718296/824817793550778388/unknown.png')
+        e.set_author(name=self.user.name, url='https://cpslab.hanyang.ac.kr/', icon_url=self.user.avatar_url)
         return e
 
     async def cmd_resetplaylist(self, player, channel):
@@ -1163,7 +1165,7 @@ class MusicBot(discord.Client):
         else:
             await self.gen_cmd_list(message)
 
-        desc = '```\n' + ', '.join(self.commands) + '\n```\n' + self.str.get(
+        desc = '```bash\n' + '\n'.join(self.commands) + '\n```\n' + self.str.get(
             'cmd-help-response', 'For information about a particular command, run `{}help [command]`\n'
                                  'For further help, see https://just-some-bots.github.io/MusicBot/').format(prefix)
         if not self.is_all:
@@ -1712,7 +1714,7 @@ class MusicBot(discord.Client):
             - soundcloud (sc)
             - yahoo (yh)
         - number: return a number of video results and waits for user to choose one
-          - defaults to 3 if unspecified
+          - defaults to 10 if unspecified
           - note: If your search query starts with a number,
                   you must put your query in quotes
             - ex: {command_prefix}search 2 "I ran seagulls"
@@ -1747,7 +1749,7 @@ class MusicBot(discord.Client):
             raise exceptions.CommandError(self.str.get('cmd-search-noquote', "Please quote your search query properly."), expire_in=30)
 
         service = 'youtube'
-        items_requested = 3
+        items_requested = 10
         max_items = permissions.max_search_items
         services = {
             'youtube': 'ytsearch',
@@ -2863,6 +2865,9 @@ class MusicBot(discord.Client):
             if not sentmsg and not response and self.config.delete_invoking:
                 await asyncio.sleep(5)
                 await self.safe_delete_message(message, quiet=True)
+
+    def command_explanation(self, command_name):
+        return command_name
 
     async def gen_cmd_list(self, message, list_all_cmds=False):
         for att in dir(self):
