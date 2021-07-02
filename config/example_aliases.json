@@ -1,5 +1,12 @@
 {
-    "play": ["p"],
-    "skip": ["s"],
-    "queue": ["q"]
+    "play": ["p","ㅔ"],
+    "skip": ["s","ㄴ"],
+    "queue": ["q","ㅂ"],
+    "np": ["ㅞ"],
+    "shuffle": ["sf", "ㄴㄹ"],
+    "summon": ["join","j","ㅓ"],
+    "disconnect": ["leave","l","ㅣ"],
+    "remove": ["rm", "그"],
+    "search": ["find", "f", "ㄹ"],
+    "help" : ["?"]
 }
