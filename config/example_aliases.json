@@ -8,5 +8,7 @@
     "disconnect": ["leave","l","ㅣ"],
     "remove": ["rm", "그"],
     "search": ["find", "f", "ㄹ"],
-    "help" : ["?"]
+    "help" : ["?"],
+    "pause" : ["stop", "ps", "ㅔ면ㄷ"],
+    "resume" : ["continue", "r", "ㄱㄷ녀ㅡㄷ"]
 }
